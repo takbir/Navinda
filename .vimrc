@@ -52,13 +52,15 @@ Plug 'elzr/vim-json'
 Plug 'davidhalter/jedi-vim'
 Plug 'lokaltog/vim-powerline'
 Plug 'vim-scripts/indentpython.vim'
-" Plug 'ervandew/supertab'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'nvie/vim-flake8'
 Plug 'easymotion/vim-easymotion'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dyng/ctrlsf.vim'
+Plug 'solarnz/thrift.vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'jmcantrell/vim-virtualenv'
 
 " Initialize plugin system
 call plug#end()
@@ -76,8 +78,15 @@ let g:ctrlp_funky_syntax_highlight = 1
 
 let python_highlight_all=1
 let NERDTreeIgnore=['\.pyc$','\.svn$','\.tmp$','\.bak$','\~$']
+let NERDTreeShowBookmarks=1 " 默认显示书签"
+let NERDTreeChDirMode=2
 
 let g:flake8_show_in_gutter=0
+
+"incsearch.vim
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 ""superTab
 let g:SuperTabCrMapping=1 "回车不换行
@@ -115,3 +124,12 @@ map <Leader> <Plug>(easymotion-prefix)
 nnoremap B ^
 nnoremap E $
 
+" VIRTUALENV setup
+:python << EOF 
+import os 
+virtualenv = os.environ.get('VIRTUAL_ENV') 
+if virtualenv: 
+  activate_this = os.path.join(virtualenv, 'bin', 'activate_this.py') 
+  if os.path.exists(activate_this): 
+    execfile(activate_this, dict(__file__=activate_this)) 
+EOF
