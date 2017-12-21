@@ -99,6 +99,10 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:ctrlsf_default_root = 'project'
 let g:ctrlsf_case_sensitive = 'no'
 
+" NerdCommenter
+" 注释的时候自动加个空格, 强迫症必配
+let g:NERDSpaceDelims=1
+
 
 " Key Mapping
 
@@ -109,6 +113,12 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Focus tags
+nnoremap <Leader><space> gt
+
+" CtrlSF
+nnoremap <Leader>ff :CtrlSF 
 
 :map <F9> :set paste<CR>
 :map <F10> :set nopaste<CR>
@@ -132,4 +142,6 @@ if virtualenv:
   activate_this = os.path.join(virtualenv, 'bin', 'activate_this.py') 
   if os.path.exists(activate_this): 
     execfile(activate_this, dict(__file__=activate_this)) 
+
 EOF
+
