@@ -44,20 +44,20 @@ Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
 Plug 'lokaltog/vim-powerline'
 Plug 'tacahiroy/ctrlp-funky'
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dyng/ctrlsf.vim'
 Plug 'solarnz/thrift.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'valloric/youcompleteme'
+Plug 'w0rp/ale'
 
 " Initialize plugin system
 call plug#end()
@@ -110,9 +110,15 @@ let g:ctrlsf_case_sensitive = 'no'
 let g:NERDSpaceDelims=1
 
 " YouCompleteMe
-nnoremap <leader>fj :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>jk :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_cache_omnifunc=0
+
+" ale
+let g:ale_linters = {'python': ['flake8', 'pylint']}
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Key Mapping
 
@@ -156,8 +162,6 @@ noremap <silent><leader>7 :tabn 7<cr>
 noremap <silent><leader>8 :tabn 8<cr>
 noremap <silent><leader>9 :tabn 9<cr>
 noremap <silent><leader>0 :tabn 10<cr>
-noremap <silent><s-tab> :tabnext<CR>
-inoremap <silent><s-tab> <ESC>:tabnext<CR>
 
 function ActivateVirtualEnv()
     :python import os; a = os.path.join('.venv', 'bin', 'activate_this.py'); execfile(a, dict(__file__=a))
