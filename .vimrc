@@ -49,18 +49,15 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
-Plug 'davidhalter/jedi-vim'
 Plug 'lokaltog/vim-powerline'
-Plug 'vim-scripts/indentpython.vim'
 Plug 'tacahiroy/ctrlp-funky'
-Plug 'nvie/vim-flake8'
 Plug 'easymotion/vim-easymotion'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dyng/ctrlsf.vim'
 Plug 'solarnz/thrift.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'jmcantrell/vim-virtualenv'
+Plug 'valloric/youcompleteme'
 
 " Initialize plugin system
 call plug#end()
@@ -70,6 +67,20 @@ call plug#end()
 set background=dark
 set termguicolors
 colorscheme quantum
+
+"Flagging Unnecessary Whitespace
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+let g:ctrlp_switch_buffer = 't'
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+    \ }
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ 
+    \ }
 
 " IndentGuides
 " let g:indent_guides_enable_on_vim_startup = 1
@@ -81,15 +92,10 @@ let NERDTreeIgnore=['\.pyc$','\.svn$','\.tmp$','\.bak$','\~$']
 let NERDTreeShowBookmarks=1 " 默认显示书签"
 let NERDTreeChDirMode=2
 
-let g:flake8_show_in_gutter=0
-
 "incsearch.vim
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-
-""superTab
-let g:SuperTabCrMapping=1 "回车不换行
 
 ""markdown
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
@@ -103,6 +109,10 @@ let g:ctrlsf_case_sensitive = 'no'
 " 注释的时候自动加个空格, 强迫症必配
 let g:NERDSpaceDelims=1
 
+" YouCompleteMe
+nnoremap <leader>fj :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_cache_omnifunc=0
 
 " Key Mapping
 
@@ -134,14 +144,22 @@ map <Leader> <Plug>(easymotion-prefix)
 nnoremap B ^
 nnoremap E $
 
-" VIRTUALENV setup
-:python << EOF 
-import os 
-virtualenv = os.environ.get('VIRTUAL_ENV') 
-if virtualenv: 
-  activate_this = os.path.join(virtualenv, 'bin', 'activate_this.py') 
-  if os.path.exists(activate_this): 
-    execfile(activate_this, dict(__file__=activate_this)) 
+noremap <silent><leader>t :tabnew<cr>
+noremap <silent><leader>g :tabclose<cr>
+noremap <silent><leader>1 :tabn 1<cr>
+noremap <silent><leader>2 :tabn 2<cr>
+noremap <silent><leader>3 :tabn 3<cr>
+noremap <silent><leader>4 :tabn 4<cr>
+noremap <silent><leader>5 :tabn 5<cr>
+noremap <silent><leader>6 :tabn 6<cr>
+noremap <silent><leader>7 :tabn 7<cr>
+noremap <silent><leader>8 :tabn 8<cr>
+noremap <silent><leader>9 :tabn 9<cr>
+noremap <silent><leader>0 :tabn 10<cr>
+noremap <silent><s-tab> :tabnext<CR>
+inoremap <silent><s-tab> <ESC>:tabnext<CR>
 
-EOF
+function ActivateVirtualEnv()
+    :python import os; a = os.path.join('.venv', 'bin', 'activate_this.py'); execfile(a, dict(__file__=a))
+endfunction
 
