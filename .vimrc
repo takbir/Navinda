@@ -110,7 +110,7 @@ let g:ctrlsf_case_sensitive = 'no'
 let g:NERDSpaceDelims=1
 
 " YouCompleteMe
-nnoremap <leader>jk :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_cache_omnifunc=0
 
@@ -151,7 +151,7 @@ nnoremap B ^
 nnoremap E $
 
 noremap <silent><leader>t :tabnew<cr>
-noremap <silent><leader>g :tabclose<cr>
+noremap <silent><leader>cc :tabclose<cr>
 noremap <silent><leader>1 :tabn 1<cr>
 noremap <silent><leader>2 :tabn 2<cr>
 noremap <silent><leader>3 :tabn 3<cr>
