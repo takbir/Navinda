@@ -56,8 +56,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'dyng/ctrlsf.vim'
 Plug 'solarnz/thrift.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'valloric/youcompleteme'
+" Plug 'valloric/youcompleteme'
 Plug 'w0rp/ale'
+Plug 'davidhalter/jedi-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -76,11 +77,11 @@ let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
     \ }
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<c-t>'],
-    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-    \ 
-    \ }
+" let g:ctrlp_prompt_mappings = {
+    " \ 'AcceptSelection("e")': ['<c-t>'],
+    " \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    " \ 
+    " \ }
 
 " IndentGuides
 " let g:indent_guides_enable_on_vim_startup = 1
@@ -110,15 +111,19 @@ let g:ctrlsf_case_sensitive = 'no'
 let g:NERDSpaceDelims=1
 
 " YouCompleteMe
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_cache_omnifunc=0
+" nnoremap <leader>gf :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" let g:ycm_collect_identifiers_from_tags_files=1
+" let g:ycm_cache_omnifunc=0
 
 " ale
 let g:ale_linters = {'python': ['flake8', 'pylint']}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" CtrlP
+
+let g:ctrlp_regexp = 1
 
 " Key Mapping
 
@@ -167,3 +172,12 @@ function ActivateVirtualEnv()
     :python import os; a = os.path.join('.venv', 'bin', 'activate_this.py'); execfile(a, dict(__file__=a))
 endfunction
 
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
